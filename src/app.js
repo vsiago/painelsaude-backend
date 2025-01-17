@@ -36,7 +36,7 @@ app.get('/classificaoderisco/:id', (req, res) => {
 
     const getClassficacao = async () => {
         try {
-            const response = await fetch(`http://192.168.6.206:8080/avaliacao/unidadeclass/HMSFX/data/${data}`);
+            const response = await fetch(`http://10.200.200.120:8080/avaliacao/unidadeclass/HMSFX/data/${data}`);
             if (!response.ok) throw new Error('Erro na requisição');
 
             const classificacoesData = await response.json();
