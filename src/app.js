@@ -11,7 +11,7 @@ app.use(cors());
 app.get('/leitos', (req, res) => {
     const getLeitos = async () => {
         try {
-            const response = await fetch('http://192.168.6.206:8080/novointernado/unidadenir/HMSFX/quem/internados');
+            const response = await fetch('http://10.200.200.120:8080/novointernado/unidadenir/HMSFX/quem/internados');
             if (!response.ok) throw new Error('Erro na requisição');
 
             const pacientesLeitos = await response.json();
@@ -71,9 +71,12 @@ app.get('/classificaoderisco/:id', (req, res) => {
     getClassficacao();
 });
 
+
+
 app.get('/numeroatendimentos', async (req, res) => {
+    const data = req.params.id;
     try {
-        const response = await fetch(`http://localhost:3333/classificaoderisco/2025-01-05`);
+        const response = await fetch(`http://localhost:9999/classificaoderisco/${data}`);
         if (!response.ok) throw new Error('Erro na requisição');
 
         const classificacoes = await response.json();
@@ -109,7 +112,7 @@ app.get('/historicoatendimentos', async (req, res) => {
             const dateString = `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
             // Faz requisição para obter os atendimentos da data
-            const response = await fetch(`http://localhost:3333/classificaoderisco/${dateString}`);
+            const response = await fetch(`http://localhost:9999/classificaoderisco/${dateString}`);
             if (!response.ok) throw new Error(`Erro na requisição para a data ${dateString}`);
 
             const data = await response.json();
@@ -131,7 +134,7 @@ app.get('/historicoatendimentos', async (req, res) => {
 app.get('/resumomedico', async (req, res) => {
     try {
         // Fazendo a requisição para a API
-        const response = await fetch('http://192.168.6.206:8080/resumomedico/data/2024-05-10/unidade/HMSFX');
+        const response = await fetch('http://10.200.200.120:8080/resumomedico/data/2024-05-10/unidade/HMSFX');
         if (!response.ok) throw new Error('Erro na requisição');
 
         const dadosAtendimentos = await response.json();
@@ -173,4 +176,4 @@ app.get('/resumomedico', async (req, res) => {
 
 
 const PORT = process.env.PORT || 5000;
-app.listen(3333, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
